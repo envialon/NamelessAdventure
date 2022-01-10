@@ -1,118 +1,56 @@
+:- include('Movement.pl').
+:- include('Inventory.pl').
+:- include('Inspection.pl').
+:- include('Items.pl').
+:- include('Puzzles.pl').
+:- include('Grammar.pl').
+
 %stating all dynamic predicates
 :- dynamic here/1.
 :- dynamic located/2.
 :- dynamic inventory/1.
 
+%help message that displays the possible actions:
+help :- 
+        write('The available actions are: '), nl, nl,
+        tab(2), write('goto: you can move through the different rooms! how cool is that?'), nl,
+        tab(6), write('example: goto ''living room''.'), nl, nl, 
+        tab(2), write('look: you can look around the room! by looking around you can get new clues!'), nl,
+        tab(6), write('example: look.'), nl, nl, 
+        tab(2), write('take: take whatever you want, don''t be shy, no one will miss it ;)'), nl,
+        tab(6), write('example: take ''delicious treat''.'), nl, nl, 
+        tab(2), write('put: you can leave stuff if you''re feeling generous too.'), nl,
+        tab(2), write('If you don''t specify where you want to place the item, you''ll drop it on the floor.'), nl,
+        tab(6), write('example: put ''very valuable item'' ''cabinet''.    This will put the very valuable item in the cabinet'), nl, nl, 
+        tab(2), write('look_inventory: do I really need to explain what this one does?'), nl,
+        tab(6), write('example: look_inventory.'), nl, nl 
+        .
 
-%rooms
-room('main entrance').
-room('kitchen').
-room('living room').
-room('dining hall').
-room('bedroom1').
-room('bedroom2').
-room('trophy room').
-room('library').
-room('hidden room').
-room('basement').
-room('hallway').
+loop :-
+        repeat,
+        get_input(InputList), 
+        parse_command(InputList, OutputList),
+        execute(OutputList),
+        check_if_game_ends(OutputList), !.
 
-%fact that states where the player is
-here('main entrance').
+get_input(InputList) :-
+        %ansi_format([bold, fg(green)], '[~w@ship]# ', ['Jolly-Roger']),
+	read_line_to_codes(user_input, UserSentenceASCIICodes),
+	string_to_atom(UserSentenceASCIICodes, Atom),
+	atomic_list_concat(InputList,' ',Atom), !.
 
-%door(), trapdoor() or stairs() connects two rooms
-door('main entrance', 'living room', open).
-door('main entrance', 'dining hall', open).
-door('hallway', 'Bedroom1',open).
-door('hallway', 'Bedroom2',open).
-door('hallway', 'trophy room',open).
-door('hallway', 'library',open).
-door('dining hall', 'kitchen',open).
-
-stairs('main entrance', 'hallway',open).
-
-trapdoor('kitchen', 'basment',hidden).
-
-
-%connections
-door_connection(X, Y) :- door(Y, X, open) ; door(X, Y, open).
-trapdoor_connection(X, Y) :- trapdoor(X, Y, open) ; trapdoor(Y, X, open).
-stairs_connection(X, Y) :- stairs(X, Y, open) ; stairs(Y, X, open).
-
-%contained
-
-%items in the inventory
-inventory().
+parse_command(InputList, OutputList) :-
+        nlp_transformation(OutputList, InputList, []), !.
 
 
-%edible items
-edible().
+execute([end]) :- !.
+execute(OutputList) :-
+        %operator =.. takes the head of the list as a functor and 
+        %the rest of the arguments as args of said functor.
+        Command =.. OutputList,
+        call(Command), !.
+execute(_) :- write('Try to make sense please, type help if you want to check examples.').
 
 
-% items
-thing('key').
-thing('flashlight').
-
-
-%located(Something, Somewhere).
-located('round table', 'living room').
-located('key', 'round table').
-
-contained(T1, T1) :- room(T1).
-contained(T1, T2) :- located(T1, T2).
-contained(T1, T2) :- located(T1, X), contained(X, T2).
-
-%listing and looking
-list_things(Place) :- located(X, Place), tab(2), write(X), nl, fail.
-list_things(_).
-
-list_connections(Place) :- door_connection(Place, X), tab(2), write(X), write(' through a door'), nl, fail.
-list_connections(Place) :- trapdoor_connection(Place, X), tab(2), write(X), write(' through a trapdoor'), nl, fail.
-list_connections(Place) :- stairs_connection(Place, X), tab(2), write(X), write(' through the stairs'), nl, fail.
-list_connections(_).
-
-look :- here(Place), 
-        write('You are in the '), write(Place), nl,
-        write('You can see:'), nl, (list_things(Place) ; write('nothing.')), nl,
-        write('You can go to:'), nl, list_connections(Place).
-
-%goto implementation
-move(Place) :- retract(here(_)), asserta(here(Place)).
-
-connects(CurrentPlace, Place) :- door_connection(CurrentPlace, Place) ; trapdoor_connection(CurrentPlace, Place); stairs_connection(CurrentPlace, Place).
-
-can_go(Place) :- here(CurrentPlace), connects(CurrentPlace, Place).
-can_go(_) :- write('You know you can''t get there from here, don''t be silly.'), nl, fail.
-
-goto(Place):- can_go(Place), move(Place), look.
-
-
-%pick implementation
-confirm_pick_up(Thing, Place):- write('You took '), write(Thing), 
-                                write(' from '), write(Place), 
-                                write(' and you placed it in you inventory, great!'), nl.
-
-pick_up(Thing, Place) :- retract(located(Thing, Place)), asserta(inventory(Thing)).
-
-search_for_thing(Thing, Container) :- here(Room), contained(Thing, Room).%, located(Thing, Container).
-search_for_thing(_) :- write('That thing is not here').
-
-pick(Thing) :- search_for_thing(Thing, C), pick_up(Thing, C), confirm_pick_up(Thing, C).
-
-
-%put implementation
-place(Thing, Place) :- retract(inventory(Thing)), asserta(located(Thing, Place)).
-
-can_place(Place) :- here(Room), contained(Place, Room).
-
-put(Thing, Place) :- can_place(Place), place(Thing, Place).
-put(Thing) :- here(Room), put(Thing, Room).
-
-
-%look inventory
-list_inventory :- inventory(X), tab(2), write(X), fail.
-list_inventory.  
-
-look_inventory :- write('Your inventory currently has:'), nl, list_inventory, nl.
-
-%
+check_if_game_ends(InputList) :-
+        [end|_] = InputList, !.
