@@ -34,5 +34,17 @@ det --> [a].
 
 %this notation includes all rooms that have single word names.
 noun(Room) --> [Room], {room(Room)}.
-noun(Room) -->
+noun('main entrance') --> [main, entrance].
+noun('living room') --> [living, room].
+noun('trophy room') --> [trophy, room].
+noun('maid room') --> [maid, room].
+noun('dining hall') --> [dining, hall].
+
+
 noun(Thing) --> [Thing], {thing(Thing)}.
+noun('main entrance key') --> [main, entrance, key].
+noun('big sword') --> [big, sword].
+noun('loaded crossbow') --> [loaded, crossbow].
+noun('butchers knife') --> [butchers, knife].
+noun('wolf head trophy') --> [wolf, head, trophy].
+

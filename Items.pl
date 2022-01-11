@@ -10,9 +10,38 @@ thing('cloth').
 thing('oil').
 thing('candle').
 thing('broom').
+thing('victorian plunger').
 
 
 %located(Something, Somewhere).
+
+%kitchen
+located('kitchen table', kitchen).
+located(cupboard, kitchen).
+located('spoon', 'kitchen table').
+located(oil, cupboard).
+located(cloth, 'kitchen table').
+located(broom, kitchen).
+located('butrchers knife', 'kitchen table').
+
+%dining hall
+located('dining table', 'dining hall').
+located('candle holder', 'dining table').
+located('candle', 'candle holder').
+
+%bedroom
+located(hanger, bedroom).
+located('red coat', hanger).
+located('main entrance key', 'red coat').
+
+%bathroom
+located(toilet, bathroom).
+located('victorian plunger'. toilet).
+
+%trophy room
+located('loaded crossbow', 'trophy room').
+located('wolf trophy head', 'trophy room').
+
 located('round table', 'living room').
 located('key', 'round table').
 :- op(35, xfy, located).

@@ -1,5 +1,6 @@
-% mainEntrance_Puzzle(goto('hidden room')) :- 
-%     Inventory('main entrance key'),
-    
-% .
-puzzle(_).
+mainEntrance_puzzle() :- 
+     inventory(InventoryList),
+     member('main entrance key', InventoryList).
+
+mainEntrance_puzzle(_) :- write('You need the key of the main entrance door to go outside.'), nl, fail.
+

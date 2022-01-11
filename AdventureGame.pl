@@ -10,6 +10,18 @@
 :- dynamic located/2.
 :- dynamic inventory/1.
 
+%list utilities
+
+memeber(X, [X|_]).
+memeber(_, [Y|Z]) :- memeber(Y,Z).
+
+add(X, L, [X|L]).
+
+delete(_, [], []).
+delete(X, [X|T], T).
+delete(X, [H|T], [H|Z]) :- delete(X, T, Z).
+
+%obsolete
 %help message that displays the possible actions:
 help :- 
         write('The available actions are: '), nl, nl,
@@ -35,9 +47,11 @@ loop :-
 
 get_input(InputList) :-
         %ansi_format([bold, fg(green)], '[~w@ship]# ', ['Jolly-Roger']),
+        nl,
 	read_line_to_codes(user_input, UserSentenceASCIICodes),
 	string_to_atom(UserSentenceASCIICodes, Atom),
-	atomic_list_concat(InputList,' ',Atom), !.
+	atomic_list_concat(InputList,' ',Atom), 
+        nl, !.
 
 parse_command(InputList, OutputList) :-
         nlp_transformation(OutputList, InputList, []), !.
