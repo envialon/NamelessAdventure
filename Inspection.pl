@@ -9,7 +9,9 @@ list_connections(_).
 
 look :- here(Place), 
         write('You are in the '), write(Place), nl,
-        write('You can see:'), nl, (list_things(Place) ; write('nothing.')), nl,
+        write('You can see:'), nl, (list_things(Place) ; write('nothing.'), nl),
         write('You can go to:'), nl, list_connections(Place).
 
+%inspect will also have the flavor text of all the items.
+inspect(Thing) :- write(Thing), write(' has:'), nl, (list_things(Thing) ; write('nothing ')), write(' inside.'), !.
 inspect(_) :- write('What are you expecting this to tell you? There is literally nothing special about it').

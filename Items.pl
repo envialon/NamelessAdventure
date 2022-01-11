@@ -36,7 +36,7 @@ located('main entrance key', 'red coat').
 
 %bathroom
 located(toilet, bathroom).
-located('victorian plunger'. toilet).
+located('victorian plunger', toilet).
 
 %trophy room
 located('loaded crossbow', 'trophy room').
