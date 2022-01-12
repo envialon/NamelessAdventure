@@ -39,6 +39,14 @@ verb(read) -->[read, page].
 verb(read) -->[read, pages].
 verb(read) -->[read, the, page].
 verb(read) -->[read, the, pages].
+verb(shoot) -->[shoot].
+verb(shoot) -->[shoot, the, crossbow].
+verb(load_crossbow) --> [load].
+verb(load_crossbow) --> [load, the, crossbow].
+verb(load_crossbow) --> [load, crossbow].
+verb(load_crossbow) --> [reload].
+verb(wear_wolfHead) --> [wear, the, wolf, head].
+verb(wear_wolfHead) --> [wear, the, wolf, trophy, head].
 
 %dets
 det --> [this].
@@ -61,11 +69,14 @@ noun('main entrance key') --> [main, entrance, key].
 noun('big sword') --> [big, sword].
 noun('loaded crossbow') --> [loaded, crossbow].
 noun('butchers knife') --> [butchers, knife].
-noun('wolf head trophy') --> [wolf, head, trophy].
+noun('wolf trophy head') --> [wolf, head, trophy].
+noun('wolf trophy head') --> [wolf, head].
 noun('dining table') --> [dining, table].
+noun('round table') --> [round, table].
 noun('candle holder') --> [candle, holder].
 noun('red coat') --> [red, coat].
 noun('victorian plunger') --> [victorian, plunger].
 noun('kitchen table') --> [kitchen, table].
 noun('red book') --> [red, book].
+noun('unloaded crossbow') --> [unloaded, crossbow].
 

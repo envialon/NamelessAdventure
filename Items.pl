@@ -3,6 +3,8 @@ thing('main entrance key').
 thing('big sword').
 thing('spoon').
 thing('loaded crossbow').
+thing('unloaded crossbow').
+thing('arrow').
 thing('butchers knife').
 thing('wolf head trophy').
 thing('torch').
@@ -35,7 +37,7 @@ located(cupboard, kitchen).
 located(oil, cupboard).
 located(cloth, 'kitchen table').
 located(broom, kitchen).
-located('butrchers knife', 'kitchen table').
+located('butchers knife', 'kitchen table').
 located('page3', 'kitchen').
 
 %dining hall
@@ -63,6 +65,7 @@ located('page2', 'round table').
 %library
 located('bureau', 'library').
 located('page4', 'bureau').
+located('maid room key', 'bureau').
 
 %maid room 
 located('corpse', 'maid room').

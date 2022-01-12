@@ -4,17 +4,13 @@
 :- include('Items.pl').
 :- include('Puzzles.pl').
 :- include('Grammar.pl').
-
+:- include('OtherActions.pl').
 %stating all dynamic predicates
 :- dynamic here/1.
 :- dynamic located/2.
 :- dynamic inventory/1.
 
 %list utilities
-
-memeber(X, [X|_]).
-memeber(_, [Y|Z]) :- memeber(Y,Z).
-
 add(X, L, [X|L]).
 
 delete(_, [], []).

@@ -20,7 +20,8 @@ here('main entrance').
 door('main entrance', 'living room', open).
 door('main entrance', 'dining hall', open).
 door('main entrance', 'outside', closed).
-door('hallway', 'Bathroom', open).
+door('bedroom', 'bathroom', open).
+door('hallway', 'bedroom', open).
 door('hallway', 'trophy room', open).
 door('hallway', 'library', open).
 door('library', 'hidden room', hidden).
@@ -46,10 +47,8 @@ move(Place) :- retract(here(_)), asserta(here(Place)).
 
 %connects(CurrentPlace, Place) :- door_connection(CurrentPlace, Place) ; trapdoor_connection(CurrentPlace, Place); stairs_connection(CurrentPlace, Place).
 
-can_go('outside') :- mainEntrance_puzzle(), cango('outside').
-can_go(Place) :- here(CurrentPlace), connects(CurrentPlace, Place, open).
-
-can_go(Place) :- here(CurrentPlace), connects(CurrentPlace, Place, open).
+can_go('outside') :- mainEntrance_puzzle().
+can_go(Place) :- here(CurrentPlace), (connects(CurrentPlace, Place, open) ; connects(CurrentPlace, Place, hidden)).
 can_go(Place) :- here(CurrentPlace), connects(CurrentPlace, Place, closed), write(Place), write(' is locked.'), nl, fail, !.
 can_go(_) :- write('You know you can''t get there from here, don''t be silly.'), nl, fail.
 

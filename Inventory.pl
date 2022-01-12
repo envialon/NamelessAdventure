@@ -1,6 +1,7 @@
 %items in the inventory
-inventory([page1, page2,page3, page4, page5]).
+inventory(['loaded crossbow']).
 
+wearing(_).
 
 %pick implementation
 confirm_pick_up(Thing, Place):- write('You took '), write(Thing), 
