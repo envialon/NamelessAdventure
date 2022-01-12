@@ -89,4 +89,3 @@ except for silver...\n
 also for being scared by wolves and having very soft wool.'),nl.
 
 flavor_text('red book') :- write('It is a big and red book, its title says ''PULL ME'', what a suspicious book.'), nl.
-

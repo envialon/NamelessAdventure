@@ -75,7 +75,6 @@ located('spoon', 'maid room').
 :- op(35, xfy, located).
 
 
-
 %contained checks recursively if something is located somewhere.
 contained(T1, T1) :- room(T1).
 contained(T1, T2) :- located(T1, T2).

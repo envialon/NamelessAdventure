@@ -10,6 +10,7 @@
 :- dynamic located/2.
 :- dynamic inventory/1.
 :- dynamic door/3.
+:- dynamic trapdoor/3.
 
 %list utilities
 add(X, L, [X|L]).
@@ -45,6 +46,10 @@ execute(OutputList) :-
         call(Command), !.
 execute(_) :- write('Try to make sense please.').
 
+check_if_game_ends(_) :-        here('outside'), wearing('wolf trophy head'), 
+                                write('You walk outside looking like an absolute clown wearing that wolf head,'), nl, 
+                                write('while walking away form the house, heading to the distant town,'), nl, 
+                                write('you can''t help but feel that there''s something more to that mansion...').
 
 check_if_game_ends(InputList) :-
         [end|_] = InputList, !.
