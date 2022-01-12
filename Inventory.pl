@@ -15,6 +15,7 @@ pick_up(Thing, Place) :- retract(located(Thing, Place)),
 search_for_thing(Thing, _) :- here(Room), contained(Thing, Room).%, located(Thing, Container).
 search_for_thing(_) :- write('That thing is not here').
 
+pick('red book') :- write('It doesn''t look like you can grab this one, maybe try inspecting it?'), !.  
 pick(Thing) :- search_for_thing(Thing, C), pick_up(Thing, C), confirm_pick_up(Thing, C).
 
 :- op(35, fx, pick).

@@ -20,3 +20,7 @@ craft_torch() :-  crafting_torch_puzzle(), inventory(InventoryList),
             (delete(broom, ClothlessList, SticklessList);delete('victorian plunger', ClothlessList, SticklessList)),
             add('torch', SticklessList, OutputList), retract(inventory(InventoryList)), asserta(inventory(OutputList)),
             write('You crafted a torch!').
+
+pull_book() :-  here(library), retract(door('library', 'hidden room', hidden)),
+                asserta(door('library', 'hidden room', open)),
+                write('You pulled the book and the shelf moved revealing a hidden room!, how predictable...'), nl.

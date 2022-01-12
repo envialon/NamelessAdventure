@@ -9,6 +9,7 @@
 :- dynamic here/1.
 :- dynamic located/2.
 :- dynamic inventory/1.
+:- dynamic door/3.
 
 %list utilities
 add(X, L, [X|L]).

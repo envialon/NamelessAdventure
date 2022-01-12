@@ -9,16 +9,20 @@ list_connections(_).
 
 look :- here(Place), 
         write('You are in the '), write(Place), nl, nl,
-        flavor_text(Place), nl,
         inspect(Place), nl,
         write('You can go to:'), nl, list_connections(Place).
 
-%inspect 
+%inspect
+inspect(Thing) :- flavor_text(Thing), nl, nl, write(Thing), write(' has:'), nl, list_things(Thing), nl, !.
+inspect(Thing) :- write(Thing), write(' has:'), nl, list_things(Thing), nl, !.
+inspect(_) :- write('What are you expecting this to tell you? There is literally nothing special about it').
+
+%flavor text
 
 flavor_text('main entrance') :-     write('The long red carpet on the floor, tall paintings of '), nl, 
                                 write('previous lords and chandeliers give the room an ominous feeling'), nl.                                
 flavor_text('hidden room'):-        write('Wow! you found a hidden room! Damn it looks like it was so well hidden,'), nl,
-                                write('even the owners of the mansion did''t know it existed, there''s nothing inside'), nl.
+                                write('even the owners of the mansion did''t know it existed, there''s nothing inside.'), nl.
 flavor_text('bathroom'):-           write('Its a very well cleaned bathroom, the maid must have done a good job, but they left the plunger on the toilet...').
 flavor_text('trophy room'):-        write('It looks like Lord Shepard liked to hunt. The room is full of hunting trophies'), nl,
                                 write('and a very dangerous looking crossbow in the wall.'), nl.
@@ -43,32 +47,28 @@ flavor_text('living room') :-       write('Very cozy living room! it has a lit f
 flavor_text('dining hall') :-       write('Wow how mainstream, a very very very long table with a candle holder and a chair in both ends,'), nl, 
                                 write('what else did you expect from a Lord''s mansion''s dining hall?'), nl.
 
-flavor_text('page1') :- writef(
-'I have just accepted the job for lord shepard.\n
-He seems to be a reserved man, good.\n
-Hopefully he is not too demanding and I''ll have an easier time,\n
-I feel like his mansion is too big for only one maid to handle...').
+flavor_text('page1') :- write('I have just accepted the job for lord shepard.'), nl, 
+write('He seems to be a reserved man, good.'), nl, 
+write('Hopefully he is not too demanding and I''ll have an easier time,'), nl, 
+write('I feel like his mansion is too big for only one maid to handle...'),nl.
 
-flavor_text('page2') :- writef(
-'This is preposterous! I am enraged! \n
-The lord keeps me in a dark and humid burrow next to the kitchen,\n
-and he has the audacity to call it a room!\n
-There''s only one ''window'' as the lord calls it in the room, a hole close to the ceiling...').
+flavor_text('page2') :- write('This is preposterous! I am enraged!'), nl, 
+write('The lord keeps me in a dark and humid burrow next to the kitchen,'), nl,
+write('and he has the audacity to call it a room!'), nl, 
+write('There''s only one ''window'' as the lord calls it in the room, a hole close to the ceiling...'),nl.
 
-flavor_text('page3') :- writef(
-'The nauseating smell of the pigs feces swarms the room during the day.\n
-I have tried to perfumate the room and block the hole (that faces the barn).\n
-I have never been subjected to this kind of inhumane living conditions. Measures must be taken...').
+flavor_text('page3') :- write('The nauseating smell of the pigs feces swarms the room during the day.'), nl,
+write('I have tried to perfumate the room and block the hole (that faces the barn).'), nl, 
+write('I have never been subjected to this kind of inhumane living conditions. Measures must be taken...'),nl.
 
-flavor_text('page4') :- writef(
-'While buying meat in the market, I heard two grandmas\n
-talking about a mysterious hag that lives in the forest up north.\n
-They claimed she was a witch, I don''t believe that nonsense,\n
-but Lord Shepard seems to be superstitious... \n
-Maybe I can scare him enough to give me a decent room.\n
-Heh, I''ll ask the witch for a ''curse'' to turn him into a werewolf,\n
-that''s so clever of me, because he''s called shepard,\n
-and shepards don''t like wolves hehehe, did you get it?').
+flavor_text('page4') :- write('While buying meat in the market, I heard two grandmas'), nl, 
+write('talking about a mysterious hag that lives in the forest up north.'), nl, 
+write('They claimed she was a witch, I don''t believe that nonsense,'), nl, 
+write('but Lord Shepard seems to be superstitious... '), nl, 
+write('Maybe I can scare him enough to give me a decent room.'), nl,
+write('Heh, I''ll ask the witch for a ''curse'' to turn him into a werewolf,'), nl, 
+write('that''s so clever of me, because he''s called shepard,'), nl, 
+write('and shepards don''t like wolves hehehe, did you get it?'),nl.
 
 flavor_text('page5') :- writef(
 'I am terrified, the curse actually worked, it didn''t turn him into a werewolf...\n
@@ -79,10 +79,7 @@ but he mortally wounded me. I''m about to die soon...\n
 If someone is reading me, please, avenge me...\n
 weresheep are famous for actually being immortal and being immune to everything\n
 except for silver...\n
-also for being scared by wolves and having very soft wool.').
+also for being scared by wolves and having very soft wool.'),nl.
 
-flavor_text('red book').
+flavor_text('red book') :- write('It is a big and red book, its title says ''PULL ME'', what a suspicious book.'), nl.
 
-
-inspect(Thing) :- write(Thing), write(' has:'), nl, list_things(Thing), nl, !.
-inspect(_) :- write('What are you expecting this to tell you? There is literally nothing special about it').

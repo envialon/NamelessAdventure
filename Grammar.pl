@@ -47,12 +47,19 @@ verb(load_crossbow) --> [load, crossbow].
 verb(load_crossbow) --> [reload].
 verb(wear_wolfHead) --> [wear, the, wolf, head].
 verb(wear_wolfHead) --> [wear, the, wolf, trophy, head].
+verb(pull_book) --> [pull].
+verb(pull_book) --> [pull, the, book].
+verb(pull_book) --> [pull, book].
+verb(pull_book) --> [pull, the, red, book].
+verb(pull_book) --> [pull, red, book].
+
 
 %dets
 det --> [this].
 det --> [that].
 det --> [the].
 det --> [a].
+
 
 %this notation includes all rooms that have single word names.
 noun(Room) --> [Room], {room(Room)}.
@@ -61,6 +68,7 @@ noun('living room') --> [living, room].
 noun('trophy room') --> [trophy, room].
 noun('maid room') --> [maid, room].
 noun('dining hall') --> [dining, hall].
+noun('hidden room') --> [hidden, room].
 
 
 noun(Thing) --> [Thing], {thing(Thing)}.

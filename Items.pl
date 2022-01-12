@@ -18,7 +18,7 @@ thing('page2').
 thing('page3').
 thing('page4').
 thing('page5').
-
+thing('red book').
 %pages
 page('page1').
 page('page2').
@@ -63,9 +63,11 @@ located('round table', 'living room').
 located('page2', 'round table').
 
 %library
+located('red book', 'library').
 located('bureau', 'library').
 located('page4', 'bureau').
 located('maid room key', 'bureau').
+located('red book', library).
 
 %maid room 
 located('corpse', 'maid room').
