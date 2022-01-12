@@ -1,19 +1,26 @@
 %listing and looking
+has_something(Thing) :- located(_, Thing).
 list_things(Place) :- located(X, Place), tab(2), write(X), nl, fail.
 list_things(_).
+
+has_locked_connection(Place) :-door_connection(Place, _, closed).
+list_locked_connections(Place) :- door_connection(Place, X, closed), tab(2), write('to '), write(X), nl, fail.
 
 list_connections(Place) :- door_connection(Place, X, open), tab(2), write(X), write(' through a door'), nl, fail.
 list_connections(Place) :- trapdoor_connection(Place, X, open), tab(2), write(X), write(' through a trapdoor'), nl, fail.
 list_connections(Place) :- stairs_connection(Place, X, open), tab(2), write(X), write(' through the stairs'), nl, fail.
 list_connections(_).
 
+
+
 look :- here(Place), 
         write('You are in the '), write(Place), nl, nl,
         inspect(Place), nl,
-        write('You can go to:'), nl, list_connections(Place).
+        write('You can go to:'), nl, list_connections(Place),
+        ((has_locked_connection(Place), write('There are locked doors: '), nl, list_locked_connections(Place)) ; true).
 
 %inspect
-inspect(Thing) :- flavor_text(Thing), nl, nl, write(Thing), write(' has:'), nl, list_things(Thing), nl, !.
+inspect(Thing) :- flavor_text(Thing),nl,  ((has_something(Thing), fail) ; not(has_something(Thing)), write(Thing), write(' has nothing.'), nl).
 inspect(Thing) :- write(Thing), write(' has:'), nl, list_things(Thing), nl, !.
 inspect(_) :- write('What are you expecting this to tell you? There is literally nothing special about it').
 

@@ -86,5 +86,6 @@ noun('red coat') --> [red, coat].
 noun('victorian plunger') --> [victorian, plunger].
 noun('kitchen table') --> [kitchen, table].
 noun('red book') --> [red, book].
+noun('maid room key') -->[maid, room, key].
 noun('unloaded crossbow') --> [unloaded, crossbow].
 

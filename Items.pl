@@ -67,7 +67,6 @@ located('red book', 'library').
 located('bureau', 'library').
 located('page4', 'bureau').
 located('maid room key', 'bureau').
-located('red book', library).
 
 %maid room 
 located('corpse', 'maid room').
