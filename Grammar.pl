@@ -22,13 +22,23 @@ verb(look_inventory) --> [backpack].
 verb(inspect) --> [inspect].
 verb(inspect) --> [look, into].
 verb(inspect) --> [check, out].
-verb(take) --> [take].
-verb(take) --> [grab].
-verb(take) --> [pick, up].
-verb(take) --> [get].
+verb(pick) --> [take].
+verb(pick) --> [grab].
+verb(pick) --> [pick, up].
+verb(pick) --> [pick].
+verb(pick) --> [get].
 verb(put) --> [put, down].
 verb(put) --> [put].
 verb(put) --> [drop].
+verb(read) -->[read].
+verb(read) -->[read, the, diary].
+verb(read) -->[read, diary].
+verb(read) -->[read, the, notes].
+verb(read) -->[read, notes].
+verb(read) -->[read, page].
+verb(read) -->[read, pages].
+verb(read) -->[read, the, page].
+verb(read) -->[read, the, pages].
 
 %dets
 det --> [this].
@@ -57,4 +67,5 @@ noun('candle holder') --> [candle, holder].
 noun('red coat') --> [red, coat].
 noun('victorian plunger') --> [victorian, plunger].
 noun('kitchen table') --> [kitchen, table].
+noun('red book') --> [red, book].
 
