@@ -1,8 +1,10 @@
 %items in the inventory
-inventory(['loaded crossbow']).
+inventory([]).
 
-wearing(_).
+wearing(nothing).
 
+
+has(Thing) :- inventory(InventoryList), member(Thing, InventoryList).
 %pick implementation
 confirm_pick_up(Thing, Place):- write('You took '), write(Thing), 
                                 write(' from '), write(Place), 
@@ -37,8 +39,9 @@ put(Thing) :- here(Room), put(Thing, Room).
 list_inventory :- inventory(X), tab(2), write(X), fail.
 list_inventory.  
 
-look_inventory :- write('Your inventory currently has:'), nl, list_inventory, nl.
 
+look_inventory :- write('Your inventory currently has:'), nl, list_inventory, nl.
+look_inventory :- wearing(X), X is 'wolf head trophy', write('You''re also wearing a wolf head for some reason...'), nl, nl.
 
 %reaad the pages you have collected.
 readpage() :-   inventory(InventoryList), page(Page), member(Page,InventoryList),
@@ -46,7 +49,7 @@ readpage() :-   inventory(InventoryList), page(Page), member(Page,InventoryList)
 readpage().
 
 
-read() :-   inventory(InventoryList), page(X), member(X, InventoryList), 
+read() :-   page(X), has(X), 
             write('You piece together the pages of the diary that you have:'), nl, nl, nl,
             readpage(), !.
 

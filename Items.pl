@@ -5,7 +5,6 @@ thing('spoon').
 thing('loaded crossbow').
 thing('unloaded crossbow').
 thing('arrow').
-thing('butchers knife').
 thing('wolf head trophy').
 thing('torch').
 thing('cloth').
@@ -37,7 +36,6 @@ located(cupboard, kitchen).
 located(oil, cupboard).
 located(cloth, 'kitchen table').
 located(broom, kitchen).
-located('butchers knife', 'kitchen table').
 located('page3', 'kitchen').
 
 %dining hall

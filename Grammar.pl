@@ -48,11 +48,13 @@ verb(load_crossbow) --> [reload].
 verb(wear_wolfHead) --> [wear, the, wolf, head].
 verb(wear_wolfHead) --> [wear, the, wolf, trophy, head].
 verb(pull_book) --> [pull].
-verb(pull_book) --> [pull, the, book].
 verb(pull_book) --> [pull, book].
-verb(pull_book) --> [pull, the, red, book].
 verb(pull_book) --> [pull, red, book].
-
+verb(craft_torch) --> [craft].
+verb(craft_torch) --> [craft, torch].
+verb(use_sword) --> [use, sword].
+verb(backflip_and_kick) --> [backflip].
+verb(use_spoon) --> [use, spoon].
 
 %dets
 det --> [this].

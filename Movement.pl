@@ -28,19 +28,19 @@ door('library', 'hidden room', hidden).
 door('dining hall', 'kitchen', open).
 door('kitchen', 'maid room', closed).
 
-stairs('main entrance', 'hallway',open).
+stairs('main entrance', 'hallway').
 
-trapdoor('kitchen', 'basment',hidden).
+trapdoor('kitchen', 'basement',hidden).
 
 
 %connections
 door_connection(X, Y, State) :- door(Y, X, State) ; door(X, Y, State).
 trapdoor_connection(X, Y, State) :- trapdoor(X, Y, State) ; trapdoor(X, Y, State).
-stairs_connection(X, Y, State) :- stairs(X, Y, State) ; stairs(X, Y, State).
+stairs_connection(X, Y) :- stairs(X, Y) ; stairs(X, Y).
 
 connects(X, Y, State) :- door(Y, X, State) ; door(X, Y, State).
-connects(X, Y, State) :- trapdoor(X, Y, State) ; trapdoor(Y, X, State).
-connects(X, Y, State) :- stairs(X, Y, State) ; stairs(Y, X, State).
+connects(X, Y, State) :- trapdoor(X, Y, State) ; trapdoor(Y, X, State),!.
+connects(X, Y, _) :- stairs(X, Y) ; stairs(Y, X),!.
 
 %goto implementation
 move(Place) :- retract(here(_)), asserta(here(Place)).
@@ -55,5 +55,9 @@ can_go(Place) :- here(CurrentPlace), (connects(CurrentPlace, Place, open) ; conn
 can_go(Place) :- here(CurrentPlace), connects(CurrentPlace, Place, closed), write(Place), write(' is locked.'), nl, fail, !.
 can_go(_) :- write('You know you can''t get there from here, don''t be silly.'), nl, fail.
 
+ 
+goto('basement') :- can_go('basement'), move('basement'), flavor_text('basement'),nl,  bossfight(). 
+goto('outside'):- can_go('outside'), move('outside').
 goto(Place):- can_go(Place), move(Place), look.
 :- op(35, fx, goto).
+
