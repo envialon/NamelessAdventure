@@ -50,9 +50,11 @@ verb(wear_wolfHead) --> [wear, the, wolf, trophy, head].
 verb(pull_book) --> [pull].
 verb(pull_book) --> [pull, book].
 verb(pull_book) --> [pull, red, book].
+verb(pull_book) --> [pull, the, red, book].
 verb(craft_torch) --> [craft].
 verb(craft_torch) --> [craft, torch].
-verb(use_sword) --> [use, sword].
+verb(use_sword) --> [use, the, sword].
+verb(backflip_and_kick) --> [do, a, backflip].
 verb(backflip_and_kick) --> [backflip].
 verb(use_spoon) --> [use, spoon].
 
@@ -77,9 +79,10 @@ noun(Thing) --> [Thing], {thing(Thing)}.
 noun(Something) --> [Something], {located(_, Something); located(Something, _)}.
 noun('main entrance key') --> [main, entrance, key].
 noun('big sword') --> [big, sword].
+noun('big sword') --> [sword].
 noun('loaded crossbow') --> [loaded, crossbow].
 noun('butchers knife') --> [butchers, knife].
-noun('wolf trophy head') --> [wolf, head, trophy].
+noun('wolf trophy head') --> [wolf, trophy, head].
 noun('wolf trophy head') --> [wolf, head].
 noun('dining table') --> [dining, table].
 noun('round table') --> [round, table].
@@ -87,7 +90,6 @@ noun('candle holder') --> [candle, holder].
 noun('red coat') --> [red, coat].
 noun('victorian plunger') --> [victorian, plunger].
 noun('kitchen table') --> [kitchen, table].
-noun('red book') --> [red, book].
 noun('maid room key') -->[maid, room, key].
 noun('unloaded crossbow') --> [unloaded, crossbow].
 

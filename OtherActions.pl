@@ -1,7 +1,4 @@
-shoot(_) :-     here('basement'), has('loaded crossbow'),
-                write('You shoot at shepard with the crossbow,'), nl,
-                write('The arrow didn''t even reach his skin, because of his thick and soft wool.'), nl,
-                write('He crushes your skull with both hands and you die.'), nl, halt(0).
+shoot(_) :-     here('basement'), not(has_killed_shepard(true)), has('loaded crossbow'), ending_text(g).
 
 shoot(Something) :- inventory(InventoryList), has('loaded crossbow'),
             delete('loaded crossbow', InventoryList, DeletedList), add( 'unloaded crossbow', DeletedList, OutputList),  %create inventory list with the unloaded crossbow
@@ -11,7 +8,8 @@ shoot(Something) :- inventory(InventoryList), has('loaded crossbow'),
 shoot() :-  here(CurrentPlace), shoot(CurrentPlace).
 
 load_crossbow() :- loadCrossbow_puzzle(), inventory(InventoryList),
-            delete('arrow', InventoryList, DeletedArrowList), delete('unloaded crossbow', DeletedArrowList, DeletedList),add( 'loaded crossbow', DeletedList, OutputList), 
+            delete('arrow', InventoryList, DeletedArrowList), delete('unloaded crossbow', DeletedArrowList, DeletedList),
+            add( 'loaded crossbow', DeletedList, OutputList), 
             retract(inventory(_)), asserta(inventory(OutputList)), 
             write('You reloaded the crossbow.'), nl. 
 
@@ -32,12 +30,14 @@ pull_book() :-  here(library), retract(door('library', 'hidden room', hidden)),
                 asserta(door('library', 'hidden room', open)),
                 write('You pulled the book and the shelf moved revealing a hidden room!, how predictable...'), nl.
 
-use_sword() :-  here('basement'), ending_text(e), halt(0). 
+use_sword() :-  here('basement'), not(has_killed_shepard(true)), ending_text(e), halt(0). 
 
-backflip_and_kick() :-  here('basement'), ending_text(f), halt(0).
+backflip_and_kick() :-  here('basement'), not(has_killed_shepard(true)), ending_text(f), halt(0).
 
-use_spoon() :-  here('basement'), write('Shepard charges towards you enraged, but you pull up'), nl,
+use_spoon() :-  here('basement'), not(has_killed_shepard(true)),
+                write('Shepard charges towards you enraged, but you pull up'), nl,
                 write('the spoon and tap his nose, he screams in agony and explodes,'), nl, 
                 write('covering you in sheep blood and guts.'), nl, 
                 retract(has_killed_shepard(_)), asserta(has_killed_shepard(true)), 
-                retract(trapdoor('kitchen', 'basement', _)), asserta(trapdoor('kitchen', 'basement', open)).
+                retract(trapdoor('kitchen', 'basement', _)), asserta(trapdoor('kitchen', 'basement', open)),
+                unlock_basement().

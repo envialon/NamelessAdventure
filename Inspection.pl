@@ -1,18 +1,14 @@
 %listing and looking
-has_something(Thing) :- located(_, Thing).
-list_things(Place) :- located(X, Place), tab(2), write(X), nl, fail.
-list_things(_).
-
 has_locked_connection(Place) :-door_connection(Place, _, closed).
 list_locked_connections(Place) :- door_connection(Place, X, closed), tab(2), write('to '), write(X), nl, fail.
 
 list_connections(Place) :- door_connection(Place, X, open), tab(2), write(X), write(' through a door'), nl, fail.
 list_connections(Place) :- trapdoor_connection(Place, X, open), tab(2), write(X), write(' through a trapdoor'), nl.
-list_connections(Place) :- stairs_connection(Place, X), tab(2), write(X), write(' through the stairs'), nl.
+list_connections(Place) :- stairs_connection(X, Place), tab(2), write(X), write(' through the stairs'), nl.
 list_connections(_).
 
 
-
+look :- here('basement'), not(has_killed_shepard(true)), flavor_text('basement'), bossfight_text(), !.
 look :- here(Place), 
         write('You are in the '), write(Place), nl, nl,
         inspect(Place), nl,
@@ -20,6 +16,10 @@ look :- here(Place),
         ((has_locked_connection(Place), write('There are locked doors: '), nl, list_locked_connections(Place)) ; true).
 
 %inspect
+has_something(Thing) :- located(_, Thing).
+list_things(Place) :- located(X, Place), tab(2), write(X), nl, fail.
+list_things(_).
+
 inspect(Thing) :- flavor_text(Thing),nl,  ((has_something(Thing), fail) ; not(has_something(Thing)), write(Thing), write(' has nothing.'), nl).
 inspect(Thing) :- write(Thing), write(' has:'), nl, list_things(Thing), nl, !.
 inspect(_) :- write('What are you expecting this to tell you? There is literally nothing special about it').
@@ -80,7 +80,7 @@ flavor_text('page4') :- write('While buying meat in the market, I heard two gran
 flavor_text('page5') :- write('I am terrified, the curse actually worked, it didn''t turn him into a werewolf...'), nl, write('
                         But into a weresheep! Exactly the same as a werewolf but as a sheep,'), nl,
                         write('even though his wool seems as soft as a cloud he is very aggressive...'), nl, 
-                        write('I pushed him into the basement''s trap door and managed to lock him,'), nl, 
+                        write('I pushed him into the basement''s trap door and managed to lock him under the kitchen,'), nl, 
                         write('but he mortally wounded me. I''m about to die soon...'), nl, 
                         write('If someone is reading me, please, avenge me...'), nl, 
                         write('weresheep are famous for actually being immortal and being immune to everything'), nl, 
@@ -121,10 +121,14 @@ ending_text(d) :-       write('You use the key to unlock the door, and when you'
                         write('it was very fast, you couldn''t even react, something very soft tackled you and'), nl,
                         write('cracked your skull in the floor like an egg.'), nl, nl.
 
-ending_text(e) :-       write('You lift the heavy sword and slash shepard,'), nl, nl, 
+ending_text(e) :-       write('You lift the heavy sword and slash shepard,'), nl,
                         write('but his thic wool stops the blow before it even reachs the skin.'), nl,
                         write('That was underwhelming, anyways, he crushes your skull with his hands.'), nl, nl.
 
 ending_text(f) :-       write('You don''t have any kind of acrobatic skills,'), nl,
                         write('you jump backwards and crack your skull in the floor while trying to backflip...'), nl,
                         write('What were you thinking? Anyways, you''re dead, obviously.'), nl, nl.
+
+ending_text(g) :-       write('You shoot at shepard with the crossbow,'), nl,
+                        write('The arrow didn''t even reach his skin, because of his thick and soft wool.'), nl,
+                        write('He crushes your skull with both hands and you die.'), nl, halt(0).
