@@ -9,7 +9,7 @@ thing('wolf head trophy').
 thing('torch').
 thing('cloth').
 thing('oil').
-thing('candle').
+thing('candle holder').
 thing('broom').
 thing('victorian plunger').
 thing('page1').
@@ -57,6 +57,7 @@ located('loaded crossbow', 'trophy room').
 located('wolf trophy head', 'trophy room').
 
 %living room 
+located('big sword', 'living room').
 located('round table', 'living room').
 located('page2', 'round table').
 
